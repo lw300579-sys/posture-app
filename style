@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Free Posture Analysis & Personalized Biomechanics Protocol</title>
 
     
@@ -17,7 +17,7 @@
 
 <style>
     body { background-color: #020617; color: #e2e8f0; font-family: 'Inter', system-ui, sans-serif; overflow: auto; font-size: 16px; }
-<div className="workspace flex flex-col md:grid md:grid-cols-[1fr_450px] min-h-screen"">
+<div className="workspace flex flex-col md:grid md:grid-cols-1fr_450px h-screen overflow-hidden">
     .viewport { position: relative; display: flex; flex-direction: column; background: #0f172a; overflow y: auto; overflow-x: hidden; padding: 2rem; min-height: 100vh; }
 .glass-panel { 
     background: #020617; 
@@ -28,55 +28,11 @@
     overflow-y: auto;    /* Enables the whole panel to scroll */
 }
     
-    .upload-grid { 
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    padding: 1rem 0;
-}
-@media (min-width: 768px) {
-    .upload-grid { 
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1rem;
-    }
-}
-
-.upload-slot { 
-    border: 2px dashed #334155;
-    border-radius: 12px;
-    position: relative;
-    overflow: visible !important;
-    transition: all 0.3s;
-    background: #1e293b/30;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    height: auto !important;
-    min-height: 340px;
-    flex: 1;
-}
-.upload-slot:hover { 
-    border-color: #22d3ee; 
-    background: #1e293b/50; 
-}
-.upload-slot.active { 
-    border-style: solid; 
-    border-color: #22d3ee; 
-}
-@media (min-width: 768px) {
-    .upload-slot {
-        min-height: 400px;
-    }
-}
-@media (max-width: 768px) {
-    .viewport {
-        padding: 1.5rem !important;
-    }
-}
-
+    .upload-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; height: 100%; }
+    .upload-slot { 
+        border: 2px dashed #334155; border-radius: 12px; position: relative; overflow: visible !important; 
+        transition: all 0.3s; background: #1e293b/30; display: flex; flex-direction: column; 
+        align-items: center; justify-content: center; cursor: pointer; height: 100vh !important;
     }
     .upload-slot:hover { border-color: #22d3ee; background: #1e293b/50; }
     .upload-slot.active { border-style: solid; border-color: #22d3ee; }
@@ -178,45 +134,6 @@
         .bg-slate-900\/50 { background: none !important; border: 1px solid #eee; }
         .protocol-badge { border: 1px solid #000; color: #000; }
     }
-		/* MOBILE FIX - Makes it perfect on phone */
-@media (max-width: 768px) {
-    .workspace {
-        display: flex;
-        flex-direction: column;
-    }
-    .viewport {
-        height: auto;
-        min-height: 60vh;
-        padding-bottom: 100px; /* extra space so nothing gets cut off */
-    }
-    .glass-panel {
-        height: auto;
-        max-height: none;
-        border-left: none;
-        border-top: 1px solid #1e293b;
-    }
-    .upload-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-        padding: 0 1rem;
-    }
-    .upload-slot {
-        min-height: 320px;
-        max-height: none;
-    }
-}
-		/* Fix right-side cutoff on mobile */
-.viewport {
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
-}
-@media (max-width: 768px) {
-    .viewport {
-        padding-left: 1.5rem !important;
-        padding-right: 1.5rem !important;
-    }
-}
 </style></head>
 <body>
     <div id="root"></div>
@@ -1547,8 +1464,7 @@ else if (type === 'head_march') {
             loop();
             return () => cancelAnimationFrame(animationRef.current);
         }, [type, playing]);
-        return <canvas ref={ref} className="w-full h-full max-h-[60vh] object-contain bg-slate-950 rounded-lg shadow-inner" />;
-
+        return <canvas ref={ref} className="w-full h-full bg-slate-950 rounded-lg shadow-inner" />;
     };
 
     const getGrade = (score) => {
@@ -3117,7 +3033,6 @@ const loadPreset = (presetName) => {
     {/* Removed 'shrink-0' because we aren't flexing anymore */}
     <div className="p-6 border-b border-slate-800 bg-slate-900/50 flex-shrink-0 overflow-y-auto max-h-96
 
-
 ">
                         <div className="flex justify-between items-start mb-2"><div className="text-[10px] font-bold text-cyan-500 uppercase tracking-widest">Structural Score</div></div>
                         <div className={`text-6xl font-black ${!audit || audit.score > 90 ? 'text-emerald-400' : audit.score > 80 ? 'text-blue-500' : audit.score > 70 ? 'text-yellow-400' : audit.score > 60 ? 'text-orange-400' : 'text-red-400'} tracking-tighter`}>{audit ? audit.score : (history[0]?.score || '--')}</div> {/* MY PROTOCOL BUTTON - Appears only after scan */}
@@ -3125,7 +3040,7 @@ const loadPreset = (presetName) => {
     <div className="mt-6 animate-popIn">
         <button 
             onClick={() => setActiveProgram(activeProgram)}
-            className="w-full py-6 !bg-gradient-to-r !from-cyan-500 !to-blue-600 hover:!from-cyan-400 hover:!to-blue-500 text-white font-black text-xl rounded-2xl uppercase tracking-widest shadow-2xl shadow-cyan-900/60 flex items-center justify-center gap-4 transition-all hover:scale-105 no-print !mt-8"
+            className="w-full py-5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-black text-lg rounded-xl uppercase tracking-widest shadow-2xl shadow-cyan-900/60 flex items-center justify-center gap-3 transition-all hover:scale-105"
         >
             <Icons.List /> OPEN MY PROTOCOL
         </button>
@@ -3275,9 +3190,3 @@ const loadPreset = (presetName) => {
     root.render(<App />);
 </script></body>
 </html>
-
-
-
-
-
-
