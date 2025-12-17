@@ -17,7 +17,7 @@
 
 <style>
     body { background-color: #020617; color: #e2e8f0; font-family: 'Inter', system-ui, sans-serif; overflow: auto; font-size: 16px; }
-<div className="workspace flex flex-col md:grid md:grid-cols-1fr_450px h-screen overflow-hidden">
+<div className="workspace flex flex-col md:grid md:grid-cols-[1fr_450px] min-h-screen"">
     .viewport { position: relative; display: flex; flex-direction: column; background: #0f172a; overflow y: auto; overflow-x: hidden; padding: 2rem; min-height: 100vh; }
 .glass-panel { 
     background: #020617; 
@@ -3191,3 +3191,4 @@ const loadPreset = (presetName) => {
     root.render(<App />);
 </script></body>
 </html>
+
