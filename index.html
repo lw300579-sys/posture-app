@@ -28,11 +28,36 @@
     overflow-y: auto;    /* Enables the whole panel to scroll */
 }
     
-    .upload-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; height: 100%; }
+    .upload-grid { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 1.5rem; 
+    padding: 1rem 0; 
+}
+@media (min-width: 768px) {
+    .upload-grid { 
+        display: grid; 
+        grid-template-columns: repeat(3, 1fr); 
+        gap: 1rem; 
+    }
+}
     .upload-slot { 
         border: 2px dashed #334155; border-radius: 12px; position: relative; overflow: visible !important; 
         transition: all 0.3s; background: #1e293b/30; display: flex; flex-direction: column; 
-        align-items: center; justify-content: center; cursor: pointer; height: auto !important; min-height: 280px;
+        align-items: center; justify-content: center; cursor: pointer; .upload-slot { 
+    border: 2px dashed #334155; border-radius: 12px; position: relative; overflow: visible !important; 
+    transition: all 0.3s; background: #1e293b/30; display: flex; flex-direction: column; 
+    align-items: center; justify-content: center; cursor: pointer; 
+    height: auto !important; 
+    flex: 1; /* Makes them grow equally on phone */
+    min-height: 300px;
+}
+@media (min-width: 768px) {
+    .upload-slot { 
+        min-height: auto; 
+        height: auto !important; 
+    }
+}
 
     }
     .upload-slot:hover { border-color: #22d3ee; background: #1e293b/50; }
@@ -3192,6 +3217,7 @@ const loadPreset = (presetName) => {
     root.render(<App />);
 </script></body>
 </html>
+
 
 
 
