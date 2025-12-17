@@ -73,23 +73,7 @@
 }
 @media (max-width: 768px) {
     .viewport {
-        padding-left: 1.5rem !important;
-        padding-right: 1.5rem !important;
-        overflow-x: hidden !important;  /* Prevents horizontal scroll/cutoff */
-    }
-    
-    /* Ensure no child element causes overflow */
-    .viewport > * {
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-    }
-    
-    /* Specifically target the big protocol button that was likely causing cutoff */
-    .glass-panel button[class*="bg-gradient"][class*="from-cyan"] {
-        padding-left: 1.5rem !important;
-        padding-right: 1.5rem !important;
-        font-size: 1.1rem !important;  /* Slightly smaller text on mobile */
-        hyphens: auto;
+        padding: 1.5rem !important;
     }
 }
 
@@ -168,6 +152,70 @@
     /* NEW: Goal Tracker Styles */
     .goal-progress { background: linear-gradient(to right, #10b981, #059669); height: 4px; border-radius: 2px; transition: width 0.3s ease; }
 
+    @media print {
+        body { background: white; color: black; overflow: visible; }
+        .workspace { display: flex; height: auto; }
+        .viewport, .glass-panel { width: 100%; height: auto; border: none; overflow: visible; }
+        .upload-grid { display: grid; grid-template-columns: repeat(3, 1fr); height: 200px; margin-bottom: 2rem; }
+        .upload-slot { border: 1px solid #ccc; background: white; }
+        .upload-slot img { opacity: 1; }
+        .no-print { display: none !important; }
+        .text-white { color: black@media (max-width: 768px) {
+    .workspace {
+        display: flex;
+        flex-direction: column;
+    }
+    .viewport {
+        height: auto;
+        min-height: 60vh;
+    }
+    .glass-panel {
+        height: auto;
+        max-height: 50vh;
+        border-left: none;
+        border-top: 1px solid #1e293b; !important; }
+        .text-slate-500 { color: #666 !important; }
+        .bg-slate-900\/50 { background: none !important; border: 1px solid #eee; }
+        .protocol-badge { border: 1px solid #000; color: #000; }
+    }
+		/* MOBILE FIX - Makes it perfect on phone */
+@media (max-width: 768px) {
+    .workspace {
+        display: flex;
+        flex-direction: column;
+    }
+    .viewport {
+        height: auto;
+        min-height: 60vh;
+        padding-bottom: 100px; /* extra space so nothing gets cut off */
+    }
+    .glass-panel {
+        height: auto;
+        max-height: none;
+        border-left: none;
+        border-top: 1px solid #1e293b;
+    }
+    .upload-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+    .upload-slot {
+        min-height: 320px;
+        max-height: none;
+    }
+}
+		/* Fix right-side cutoff on mobile */
+.viewport {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+}
+@media (max-width: 768px) {
+    .viewport {
+        padding-left: 1.5rem !important;
+        padding-right: 1.5rem !important;
+    }
 }
 </style></head>
 <body>
@@ -1499,9 +1547,7 @@ else if (type === 'head_march') {
             loop();
             return () => cancelAnimationFrame(animationRef.current);
         }, [type, playing]);
-        return <canvas ref={ref} className="w-full h-full min-h-[60vh] md:min-h-0 object-contain bg-slate-950 rounded-lg shadow-inner"
-
- />;
+        return <canvas ref={ref} className="w-full h-full max-h-[60vh] object-contain bg-slate-950 rounded-lg shadow-inner" />;
 
     };
 
@@ -1839,8 +1885,8 @@ else if (type === 'head_march') {
                                 <Icons.Video/> TUTORIAL
                             </button>
                         </div>
-                        <div className="flex-1 relative min-h-[60vh] md:min-h-0">
-                                <KineticCanvas type={currentExercise.demoType} playing={playing} />
+                        <div className="flex-1 relative">
+                            <KineticCanvas type={currentExercise.demoType} playing={playing} />
                             <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-5xl font-black text-white font-mono pointer-events-none">
                                 {Math.floor(timeLeft/60)}:{(timeLeft%60).toString().padStart(2,'0')}
                             </div>
@@ -3078,12 +3124,11 @@ const loadPreset = (presetName) => {
 {showProtocolButton && activeProgram && (
     <div className="mt-6 animate-popIn">
         <button 
-    onClick={generateProgram} 
-    className="w-full py-8 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-black text-2xl rounded-3xl uppercase tracking-widest shadow-2xl shadow-cyan-900/70 flex items-center justify-center gap-5 transition-all hover:scale-105 hover:shadow-3xl no-print mt-10 animate-pulse-slow"
->
-    <Icons.List className="w-8 h-8" /> 
-    MY PROTOCOL
-</button>
+            onClick={() => setActiveProgram(activeProgram)}
+            className="w-full py-6 !bg-gradient-to-r !from-cyan-500 !to-blue-600 hover:!from-cyan-400 hover:!to-blue-500 text-white font-black text-xl rounded-2xl uppercase tracking-widest shadow-2xl shadow-cyan-900/60 flex items-center justify-center gap-4 transition-all hover:scale-105 no-print !mt-8"
+        >
+            <Icons.List /> OPEN MY PROTOCOL
+        </button>
     </div>
 )}
                         <div className="mt-4 flex gap-2 no-print flex-wrap">
@@ -3103,8 +3148,7 @@ const loadPreset = (presetName) => {
 
         <button 
             onClick={generateProgram} 
-            className="w-full !py-6 !bg-gradient-to-r !from-cyan-500 !to-blue-600 hover:!from-cyan-400 hover:!to-blue-500 text-white font-black text-xl rounded-2xl uppercase tracking-widest shadow-2xl !shadow-cyan-900/60 flex items-center justify-center gap-4 transition-all hover:scale-105 no-print mt-8"
-
+            className="w-full py-5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-black text-lg rounded-xl uppercase tracking-widest shadow-2xl shadow-cyan-900/40 flex items-center justify-center gap-3 transition-all hover:scale-105 no-print"
         >
             <Icons.List /> MY PROTOCOL
         </button>
