@@ -32,7 +32,8 @@
     .upload-slot { 
         border: 2px dashed #334155; border-radius: 12px; position: relative; overflow: visible !important; 
         transition: all 0.3s; background: #1e293b/30; display: flex; flex-direction: column; 
-        align-items: center; justify-content: center; cursor: pointer; height: 100vh !important;
+        align-items: center; justify-content: center; cursor: pointer; height: auto !important; min-height: 280px;
+
     }
     .upload-slot:hover { border-color: #22d3ee; background: #1e293b/50; }
     .upload-slot.active { border-style: solid; border-color: #22d3ee; }
@@ -3191,5 +3192,6 @@ const loadPreset = (presetName) => {
     root.render(<App />);
 </script></body>
 </html>
+
 
 
