@@ -29,33 +29,51 @@
 }
     
     .upload-grid { 
-    display: flex; 
-    flex-direction: column; 
-    gap: 1.5rem; 
-    padding: 1rem 0; 
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1rem 0;
 }
 @media (min-width: 768px) {
     .upload-grid { 
-        display: grid; 
-        grid-template-columns: repeat(3, 1fr); 
-        gap: 1rem; 
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
     }
 }
-    .upload-slot { 
-        border: 2px dashed #334155; border-radius: 12px; position: relative; overflow: visible !important; 
-        transition: all 0.3s; background: #1e293b/30; display: flex; flex-direction: column; 
-        align-items: center; justify-content: center; cursor: pointer; .upload-slot { 
-    border: 2px dashed #334155; border-radius: 12px; position: relative; overflow: visible !important; 
-    transition: all 0.3s; background: #1e293b/30; display: flex; flex-direction: column; 
-    align-items: center; justify-content: center; cursor: pointer; 
-    height: auto !important; 
-    flex: 1; /* Makes them grow equally on phone */
-    min-height: 300px;
+
+.upload-slot { 
+    border: 2px dashed #334155;
+    border-radius: 12px;
+    position: relative;
+    overflow: visible !important;
+    transition: all 0.3s;
+    background: #1e293b/30;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    height: auto !important;
+    min-height: 340px;
+    flex: 1;
+}
+.upload-slot:hover { 
+    border-color: #22d3ee; 
+    background: #1e293b/50; 
+}
+.upload-slot.active { 
+    border-style: solid; 
+    border-color: #22d3ee; 
 }
 @media (min-width: 768px) {
-    .upload-slot { 
-        min-height: auto; 
-        height: auto !important; 
+    .upload-slot {
+        min-height: 400px;
+    }
+}
+@media (max-width: 768px) {
+    .viewport {
+        padding: 1.5rem !important;
     }
 }
 
@@ -3257,6 +3275,7 @@ const loadPreset = (presetName) => {
     root.render(<App />);
 </script></body>
 </html>
+
 
 
 
